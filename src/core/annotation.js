@@ -3382,6 +3382,12 @@ class LineAnnotation extends MarkupAnnotation {
     this.setLineEndings(dict.getArray("LE"));
     this.data.lineEndings = this.lineEndings;
 
+    // If the line coordinates were flipped (due to Util.normalizeRect), also
+    // flip the line endings to match.
+    if (lineCoordinates[0] !== this.data.lineCoordinates[0]) {
+      this.lineEndings.reverse();
+    }
+
     if (!this.appearance) {
       // The default stroke color is black.
       const strokeColor = this.color
